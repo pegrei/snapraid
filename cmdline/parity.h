@@ -54,7 +54,6 @@ struct snapraid_parity_handle {
 	struct snapraid_split_handle split_map[SPLIT_MAX];
 	unsigned split_mac; /**< Number of parity splits. */
 	unsigned level; /**< Level of the parity. */
-	int has_write_access; /**< If the parity is open for writing. */
 };
 
 /**
@@ -120,6 +119,11 @@ int parity_open(struct snapraid_parity_handle* handle, const struct snapraid_par
  * Flush the parity file in the disk.
  */
 int parity_sync(struct snapraid_parity_handle* handle);
+
+/**
+ * Truncate the parity file to the valid size.
+ */
+int parity_truncate(struct snapraid_parity_handle* handle);
 
 /**
  * Close the parity file.
