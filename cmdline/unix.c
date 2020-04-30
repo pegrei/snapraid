@@ -650,9 +650,9 @@ int fsinfo(const char* path, int* has_persistent_inode, int* has_syncronized_har
 	const char* ptype;
 
 #if HAVE_STATFS
-	struct statfs st;
+	struct statvfs st;
 
-	if (statfs(path, &st) != 0) {
+	if (statvfs(path, &st) != 0) {
 		char dir[PATH_MAX];
 		char* slash;
 
@@ -674,7 +674,7 @@ int fsinfo(const char* path, int* has_persistent_inode, int* has_syncronized_har
 			return -1;
 
 		*slash = 0;
-		if (statfs(dir, &st) != 0)
+		if (statvfs(dir, &st) != 0)
 			return -1;
 	}
 #endif
@@ -761,7 +761,7 @@ int fsinfo(const char* path, int* has_persistent_inode, int* has_syncronized_har
 	ptype = "unknown";
 #endif
 
-	log_tag("statfs:%s: %s \n", ptype, path);
+	log_tag("statvfs:%s: %s \n", ptype, path);
 
 	return 0;
 }
